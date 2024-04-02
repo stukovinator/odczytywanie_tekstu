@@ -1,0 +1,218 @@
+﻿<Window x:Class="odczytywanie_tekstu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:odczytywanie_tekstu"
+        mc:Ignorable="d"
+        Title="ODCZYTYWANIE TEKSTU" Height="790" Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        Background="#3d3d3d"
+        Icon="icon.ico">
+
+    <StackPanel Margin="0, 15, 0, 0">
+        <Grid HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="125"/>
+                <ColumnDefinition Width="125"/>
+            </Grid.ColumnDefinitions>
+
+            <Border x:Name="UPLOAD_BUTTON" Grid.Row="0" Grid.Column="0" Background="#3d3d3d" Margin="5, 0, 5, 0" BorderThickness="2" BorderBrush="CornflowerBlue" HorizontalAlignment="Stretch" CornerRadius="5" MouseLeftButtonDown="uploadFile">
+                <Border.Effect>
+                    <DropShadowEffect Color="#FF353535" ShadowDepth="5" Direction="-90" Opacity="0.5"/>
+                </Border.Effect>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="#4d4d4d" Duration="0:0:0.1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="#3d3d3d" Duration="0:0:0.1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                    <Image Source="upload.png" VerticalAlignment="Center" Height="22"/>
+                    <Label Content="OTWÓRZ PLIK" Foreground="WhiteSmoke" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="0" Grid.Column="1" Background="#3d3d3d" Margin="5, 0, 5, 0" BorderThickness="2" BorderBrush="IndianRed" HorizontalAlignment="Stretch" CornerRadius="5" MouseLeftButtonDown="closeFile">
+                <Border.Effect>
+                    <DropShadowEffect Color="#FF353535" ShadowDepth="5" Direction="-90" Opacity="0.5"/>
+                </Border.Effect>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="#4d4d4d" Duration="0:0:0.1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="#3d3d3d" Duration="0:0:0.1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                    <Image Source="delete.png" VerticalAlignment="Center" Height="22"/>
+                    <Label Content="ZAMKNIJ PLIK" Foreground="WhiteSmoke" FontWeight="SemiBold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <StackPanel Margin="20, 15, 20, 0">
+            <Border BorderThickness="2" Background="#3d3d3d" BorderBrush="CornflowerBlue" CornerRadius="5" Height="auto" Padding="5">
+                <Border.Effect>
+                    <DropShadowEffect Color="#FF353535" ShadowDepth="3" Direction="-90" Opacity="0.5"/>
+                </Border.Effect>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" MaxHeight="240" VerticalScrollBarVisibility="Visible">
+                    <TextBlock x:Name="MAIN_TEXT" FontFamily="Courier New" FontWeight="Light" Text="" Foreground="WhiteSmoke" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                </ScrollViewer>
+
+            </Border>
+
+            <Grid HorizontalAlignment="Center" Margin="0, 15, 0, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="0" Margin="5, 0, 5, 0" BorderThickness="2" BorderBrush="CornflowerBlue" HorizontalAlignment="Stretch" CornerRadius="3">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF353535" ShadowDepth="5" Direction="-90" Opacity="0.5"/>
+                    </Border.Effect>
+                    <StackPanel Background="#3d3d3d">
+                        <Label Content="ILOŚĆ WYRAZÓW" Foreground="WhiteSmoke" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label x:Name="WORDS_COUNT" Content="0" Foreground="WhiteSmoke" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="1" Margin="5, 0, 5, 0" BorderThickness="2" BorderBrush="CornflowerBlue" HorizontalAlignment="Stretch" CornerRadius="3">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF353535" ShadowDepth="5" Direction="-90" Opacity="0.5"/>
+                    </Border.Effect>
+                    <StackPanel Background="#3d3d3d">
+                        <Label Content="ILOŚĆ LINIJEK" Foreground="WhiteSmoke" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label x:Name="LINE_COUNT" Content="0" Foreground="WhiteSmoke" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" Margin="0, 25, 0, 0">
+            <StackPanel HorizontalAlignment="Center" Width="240">
+                <Border BorderBrush="CornflowerBlue" Background="#3d3d3d" BorderThickness="2" CornerRadius="5" MouseLeftButtonDown="searchPanelOperation">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF353535" ShadowDepth="5" Direction="-90" Opacity="0.5"/>
+                    </Border.Effect>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation To="#4d4d4d" Duration="0:0:0.1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation To="#3d3d3d" Duration="0:0:0.1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <StackPanel x:Name="SEARCH_PANEL_BAR" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image VerticalAlignment="Center" Margin="0, 0, 15, 0" Source="expand.png" Height="25"/>
+                        <Label Content="OPCJE WYSZUKIWANIA" FontWeight="SemiBold" Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Image VerticalAlignment="Center" Margin="15, 0, 0, 0" Source="expand.png" Height="25"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+            <StackPanel x:Name="FOUND_PANEL" Visibility="Visible" Margin="0, 10, 0, 5">
+                <Border  BorderBrush="CornflowerBlue" Background="#3d3d3d" BorderThickness="2" CornerRadius="5" MouseLeftButtonDown="searchPanelOperation">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF353535" ShadowDepth="5" Direction="-90" Opacity="0.5"/>
+                    </Border.Effect>
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <Label x:Name="FOUND_COUNT" Content="ZNALEZIONE: 0" HorizontalContentAlignment="Center" Foreground="WhiteSmoke" FontWeight="Medium"/>
+                    </StackPanel>
+
+                </Border>
+            </StackPanel>
+
+            <StackPanel x:Name="MAIN_SEARCH_PANEL" Visibility="Visible" Margin="0, 5, 0, 0">
+                <Border BorderBrush="CornflowerBlue" Background="#3d3d3d" BorderThickness="2" CornerRadius="5">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#FF353535" ShadowDepth="5" Direction="-90" Opacity="0.5"/>
+                    </Border.Effect>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="45"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel HorizontalAlignment="Center" Grid.Row="0">
+                            <Label Content="% - DOWOLNY ZNAK" HorizontalAlignment="Center" Foreground="WhiteSmoke" FontWeight="Medium"/>
+                            <Label Content="* - DOWOLNE ZNAKI" HorizontalAlignment="Center" Foreground="WhiteSmoke" FontWeight="Medium"/>
+                        </StackPanel>
+
+                        <Border Grid.Row="1" Margin="5, 0, 5, 0" BorderBrush="CornflowerBlue" VerticalAlignment="Center" Padding="0, 10, 0, 10" Background="#3d3d3d" BorderThickness="2" CornerRadius="3">
+                            <StackPanel Orientation="Vertical">
+                                <TextBox x:Name="SEARCH_ENTRY" BorderThickness="0" Background="#3d3d3d" Text="" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="WhiteSmoke" FontFamily="Courier New"/>
+                            </StackPanel>
+
+                        </Border>
+
+                        <StackPanel HorizontalAlignment="Center" Grid.Row="2" x:Name="FOUND_IN_LINE">
+                            <Label Content="ODNALEZIONO W LINII:" HorizontalAlignment="Center" Foreground="WhiteSmoke" FontWeight="Medium"/>
+                            <Label x:Name="FOUND_IN_LINES_TEXT" Content="" HorizontalAlignment="Center" Foreground="WhiteSmoke" FontWeight="Medium"/>
+                        </StackPanel>
+
+
+                        <Border x:Name="SEARCH_BUTTON" Grid.Row="3" Margin="0, 2, 0, 0" Padding="5, 0, 5, 2" BorderBrush="CornflowerBlue" Background="CornflowerBlue" BorderThickness="0" MouseLeftButtonDown="searchInText">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Label Content="WYSZUKAJ" Foreground="WhiteSmoke" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="DemiBold"/>
+                                <Image Source="search.png" Height="20" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                        </Border>
+
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>
